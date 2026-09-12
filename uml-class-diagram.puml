@@ -1,0 +1,72 @@
+@startuml
+interface PizzaBuilder {
+  + setSize(Size): PizzaBuilder
+  + setCrust(String): PizzaBuilder
+  + setSauce(String): PizzaBuilder
+  + addCheese(String): PizzaBuilder
+  + addTopping(String): PizzaBuilder
+  + build(): Pizza
+}
+
+abstract class AbstractPizzaBuilder {
+  # size: Size
+  # crustType: String
+  # sauceType: String
+  # cheeses: List<String>
+  # toppings: List<String>
+  + build(): Pizza
+  # {abstract} validateStyleSpecificState(): void
+  # {abstract} describeAssembly(): String
+}
+
+class NeapolitanPizzaBuilder {
+  - MAX_NEAPOLITAN_TOPPINGS: int
+  # validateStyleSpecificState(): void
+  # describeAssembly(): String
+}
+
+class ChicagoDeepDishPizzaBuilder {
+  # validateStyleSpecificState(): void
+  # describeAssembly(): String
+}
+
+class Pizza {
+  - size: Size
+  - crustType: String
+  - sauceType: String
+  - cheeses: List<String>
+  - toppings: List<String>
+  - bakingInstructions: String
+  + getSize(): Size
+  + getCrustType(): String
+  + getSauceType(): String
+  + getCheeses(): List<String>
+  + getToppings(): List<String>
+  + getBakingInstructions(): String
+}
+
+class PizzaDirector {
+  + buildMargherita(PizzaBuilder, Size): Pizza
+  + buildMeatLoversDeepDish(PizzaBuilder, Size): Pizza
+}
+
+class Main {
+  + {static} main(String[]): void
+}
+
+enum Size {
+  SMALL
+  MEDIUM
+  LARGE
+  EXTRA_LARGE
+}
+
+PizzaBuilder <|.. AbstractPizzaBuilder : implements
+AbstractPizzaBuilder <|-- NeapolitanPizzaBuilder : extends
+AbstractPizzaBuilder <|-- ChicagoDeepDishPizzaBuilder : extends
+AbstractPizzaBuilder ..> Pizza : builds
+PizzaDirector ..> PizzaBuilder : uses
+Main ..> PizzaDirector : uses
+Main ..> NeapolitanPizzaBuilder : uses
+Main ..> ChicagoDeepDishPizzaBuilder : uses
+@enduml
