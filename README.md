@@ -1,6 +1,6 @@
 # Pizza Builder — Assignment #1 (Builder Pattern)
 
-**Course:** ShP-2216 — Software Design Patterns, Astana IT University
+**Course:** SE-2505 — Software Design Patterns, Astana IT University
 
 ## What this is
 
